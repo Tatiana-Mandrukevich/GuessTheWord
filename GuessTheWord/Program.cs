@@ -6,8 +6,9 @@ namespace GuesTheWord
     {
         public static void Main(string[] args)
         {
-            var game = new Game(10);
-            game.AddLetter('a', true);
+            var ui = new ConsoleUI();
+            ui.InputLetter();
+            ui.ChooseDifficulty();
         }
     }
 }
