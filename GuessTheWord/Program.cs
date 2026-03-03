@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GuesTheWord
+namespace GuessTheWord
 {
     internal class Program
     {

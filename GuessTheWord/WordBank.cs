@@ -1,4 +1,4 @@
-namespace GuesTheWord;
+namespace GuessTheWord;
 
 public class WordBank
 {

@@ -1,4 +1,4 @@
-namespace GuesTheWord;
+namespace GuessTheWord;
 
 public class ConsoleUI
 {
@@ -35,23 +35,22 @@ public class ConsoleUI
 
     public DifficultyType ChooseDifficulty()
     {
-        string result = ReadDifficulty();
-
-        while (!IsInputDifficultyValid(result))
+        while (true)
         {
-            result = ReadDifficulty();
-        }
+            string result = ReadDifficulty();
 
-        switch (result)
-        {
-            case "1":
-                return DifficultyType.Easy;
-            case "2":
-                return DifficultyType.Normal;
-            case "3":
-                return DifficultyType.Hard;
-            default:
-                return DifficultyType.Easy;
+            switch (result)
+            {
+                case "1":
+                    return DifficultyType.Easy;
+                case "2":
+                    return DifficultyType.Normal;
+                case "3":
+                    return DifficultyType.Hard;
+                default:
+                    Console.WriteLine($"Invalid difficulty: {result}");
+                    break;
+            }
         }
     }
 
@@ -62,18 +61,6 @@ public class ConsoleUI
                           "2 - Normal\n" +
                           "3 - Hard");
         return Console.ReadLine();
-    }
-    
-    private bool IsInputDifficultyValid(string inputDifficulty)
-    {
-        if (inputDifficulty == "1" || inputDifficulty == "2" || inputDifficulty == "3"){
-            return true;
-        }
-        else
-        {
-            Console.WriteLine($"Invalid difficulty: {inputDifficulty}");
-            return false;
-        }
     }
 
     public void ShowUsedLetters(char[] letters)
