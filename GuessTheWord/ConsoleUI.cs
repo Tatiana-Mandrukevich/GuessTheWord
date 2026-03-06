@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace GuessTheWord;
 
 public class ConsoleUI
@@ -10,8 +12,8 @@ public class ConsoleUI
         {
             result = ReadLetter();
         }
-        
-        return result[0];
+
+        return result.ToUpper()[0];
     }
 
     private string ReadLetter()
@@ -22,15 +24,28 @@ public class ConsoleUI
 
     private bool IsInputLetterValid(string inputLetter)
     {
-        if (inputLetter.Length == 1 && char.IsLetter(inputLetter[0]))
+
+        if (string.IsNullOrEmpty(inputLetter))
+        {
+            Console.WriteLine("Letter cannot be empty");
+            return false;
+        }
+
+        if (inputLetter.Length != 1)
+        {
+            Console.WriteLine("Letter must contain exactly one letter");
+            return false;
+        }
+
+        bool isLetter = char.IsLetter(inputLetter[0]);
+                
+        if (isLetter)
         {
             return true;
         }
-        else
-        {
-            Console.WriteLine($"Invalid letter: {inputLetter}");
-            return false;
-        }
+
+        Console.WriteLine($"Invalid letter: {inputLetter}");
+        return false;
     }
 
     public DifficultyType ChooseDifficulty()
