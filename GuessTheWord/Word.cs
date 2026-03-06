@@ -16,7 +16,7 @@ public class Word
         return _value.Contains(letter.ToString());
     }
 
-    public string GetMask(char[] guessedLetters)
+    public string GetMask(HashSet<char> guessedLetters)
     {
         string result = string.Empty;
         
@@ -34,4 +34,10 @@ public class Word
         
         return result;
     }
+    
+    public override string ToString()
+    {
+        return _value;
+    }
+    
 }

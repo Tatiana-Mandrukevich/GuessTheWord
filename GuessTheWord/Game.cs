@@ -2,23 +2,59 @@ namespace GuessTheWord;
 
 public class Game
 {
-    private int _attempts;
-    private int _attemptsMax;
-    private List<char> _usedLetters = new List<char>();
-    private List<char> _guessedLetters = new List<char>();
+    public int LeftAttempts { get; private set; }
+    public Word GeneratedWord { get; private set; }
+    public List<char> UsedLetters { get; private set; } = new();
+    public HashSet<char> GuessedLetters { get; private set; } = new();
+    public bool HasLeftAttempts { get; private set; } = true;
+    public bool IsGeneratedWordGuessed { get; private set; } = false;
     
-    public  Game(int attemptsMax)
+    private Difficulty _difficulty;
+    private WordBank _wordBank = new();
+
+    public Game(Difficulty difficulty)
     {
-        _attemptsMax = attemptsMax;
+        _difficulty = difficulty;
+        LeftAttempts = difficulty.Attempts;
     }
 
-    public void AddLetter(char letter, bool isGuessed)
+    public void GenerateWord()
     {
-        _usedLetters.Add(letter);
+        GeneratedWord = _wordBank.Generate(_difficulty);
+    }
+
+    public void AddLetter(char letter)
+    {
+        UsedLetters.Add(letter);
         
-        if (isGuessed)
+        if (GeneratedWord.Contains(letter))
         {
-            _guessedLetters.Add(letter);
+            GuessedLetters.Add(letter);
+        }
+    }
+    
+    public void MinusAttempt()
+    {
+        if (LeftAttempts > 0)
+        {
+            LeftAttempts--;
+
+            if (LeftAttempts == 0)
+            {
+                HasLeftAttempts = false;
+            }
+        }
+        else
+        {
+            HasLeftAttempts = false;
+        }
+    }
+    
+    public void CheckIsGeneratedWordGuessed()
+    {
+        if (GeneratedWord.GetMask(GuessedLetters) == GeneratedWord.ToString())
+        {
+            IsGeneratedWordGuessed = true;
         }
     }
 }

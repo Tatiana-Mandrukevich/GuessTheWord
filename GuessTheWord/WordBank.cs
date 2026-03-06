@@ -2,22 +2,22 @@ namespace GuessTheWord;
 
 public class WordBank
 {
-    private List<Word> _words;
+    private HashSet<Word> _words;
 
     public WordBank()
     {
-        _words = new List<Word>
+        _words = new HashSet<Word>
         {
-            new("ide"),
-            new("dog"),
-            new("cat"),
-            new("home"),
-            new("cold"),
-            new("unity"),
-            new("laptop"),
-            new("family"),
-            new("teacher"),
-            new("computer")
+            new("IDE"),
+            new("DOG"),
+            new("CAT"),
+            new("HOME"),
+            new("COLD"),
+            new("UNITY"),
+            new("LAPTOP"),
+            new("FAMILY"),
+            new("TEACHER"),
+            new("COMPUTER")
         };
     }
 
