@@ -2,7 +2,7 @@ namespace GuessTheWord;
 
 public class WordBank
 {
-    private HashSet<Word> _words;
+    private readonly HashSet<Word> _words;
 
     public WordBank()
     {

@@ -35,6 +35,18 @@ public class Word
         return result;
     }
     
+    public bool IsGuessed(HashSet<char> guessedLetters)
+    {
+        foreach (char letter in _value)
+        {
+            if (!guessedLetters.Contains(letter))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public override string ToString()
     {
         return _value;

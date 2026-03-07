@@ -33,7 +33,7 @@ public class ConsoleUI
 
         if (inputLetter.Length != 1)
         {
-            Console.WriteLine("Letter must contain exactly one letter");
+            Console.WriteLine("Must be only one letter");
             return false;
         }
 

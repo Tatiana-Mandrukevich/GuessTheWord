@@ -15,9 +15,8 @@
             ui.ShowLeftAttempts(game.LeftAttempts);
             
             game.GenerateWord();
-            Word generatedWord = game.GeneratedWord;
-            string generatedWordLikeMask = generatedWord.GetMask(game.GuessedLetters);
-            ui.ShowWord(generatedWordLikeMask);
+            string mask = game.GetMask();
+            ui.ShowWord(mask);
 
             while (game.HasLeftAttempts)
             {
@@ -25,10 +24,9 @@
                 game.AddLetter(inputLetter);
                 game.MinusAttempt();
                 ui.ShowUsedLetters(game.UsedLetters);
-                string generatedWordWithMask = generatedWord.GetMask(game.GuessedLetters);
-                ui.ShowWord(generatedWordWithMask);
+                mask = game.GetMask();
+                ui.ShowWord(mask);
                 
-                game.CheckIsGeneratedWordGuessed();
                 if (game.IsGeneratedWordGuessed)
                 {
                     break;

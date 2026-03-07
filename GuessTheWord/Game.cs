@@ -3,14 +3,16 @@ namespace GuessTheWord;
 public class Game
 {
     public int LeftAttempts { get; private set; }
-    public Word GeneratedWord { get; private set; }
-    public List<char> UsedLetters { get; private set; } = new();
-    public HashSet<char> GuessedLetters { get; private set; } = new();
-    public bool HasLeftAttempts { get; private set; } = true;
-    public bool IsGeneratedWordGuessed { get; private set; } = false;
-    
-    private Difficulty _difficulty;
-    private WordBank _wordBank = new();
+    public List<char> UsedLetters { get; } = new();
+
+    public bool HasLeftAttempts => LeftAttempts > 0;
+    public bool IsGeneratedWordGuessed => _generatedWord.IsGuessed(_guessedLetters);
+
+    private readonly Difficulty _difficulty;
+    private readonly WordBank _wordBank = new();
+    private readonly HashSet<char> _guessedLetters = new();
+
+    private Word _generatedWord;
 
     public Game(Difficulty difficulty)
     {
@@ -20,41 +22,29 @@ public class Game
 
     public void GenerateWord()
     {
-        GeneratedWord = _wordBank.Generate(_difficulty);
+        _generatedWord = _wordBank.Generate(_difficulty);
     }
 
     public void AddLetter(char letter)
     {
         UsedLetters.Add(letter);
-        
-        if (GeneratedWord.Contains(letter))
+
+        if (_generatedWord.Contains(letter))
         {
-            GuessedLetters.Add(letter);
+            _guessedLetters.Add(letter);
         }
     }
-    
+
     public void MinusAttempt()
     {
         if (LeftAttempts > 0)
         {
             LeftAttempts--;
-
-            if (LeftAttempts == 0)
-            {
-                HasLeftAttempts = false;
-            }
-        }
-        else
-        {
-            HasLeftAttempts = false;
         }
     }
-    
-    public void CheckIsGeneratedWordGuessed()
+
+    public string GetMask()
     {
-        if (GeneratedWord.GetMask(GuessedLetters) == GeneratedWord.ToString())
-        {
-            IsGeneratedWordGuessed = true;
-        }
+        return _generatedWord.GetMask(_guessedLetters);
     }
 }
