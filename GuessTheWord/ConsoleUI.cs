@@ -33,7 +33,7 @@ public class ConsoleUI
 
         if (inputLetter.Length != 1)
         {
-            Console.WriteLine("Letter must contain exactly one letter");
+            Console.WriteLine("Must be only one letter");
             return false;
         }
 
@@ -78,7 +78,7 @@ public class ConsoleUI
         return Console.ReadLine();
     }
 
-    public void ShowUsedLetters(char[] letters)
+    public void ShowUsedLetters(List<char> letters)
     {
         Console.WriteLine("Used letters:");
             
@@ -95,13 +95,23 @@ public class ConsoleUI
         Console.WriteLine($"Word: {word}");
     }
     
-    public void ShowLeftAttempts(int leftAttempts)
+    public void ShowLeftAttempts(int attempts)
     {
-        Console.WriteLine($"Left attempts: {leftAttempts}");
+        Console.WriteLine($"You have {attempts} attempts to guess the word.");
     }
 
     public void ShowGameResult(bool isWin)
     {
         Console.WriteLine(isWin ? "You won!" : "You lost!");
+    }
+    
+    public void ShowGameWelcomeMessage()
+    {
+        Console.WriteLine("Welcome to Guess The Word! Let's start the game!");
+    }
+    
+    public void ShowDifficulty(DifficultyType difficultyType)
+    {
+        Console.WriteLine($"You have chosen {difficultyType} difficulty.");
     }
 }

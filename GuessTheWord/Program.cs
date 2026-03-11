@@ -1,27 +1,40 @@
-﻿using System;
-
-namespace GuessTheWord
+﻿namespace GuessTheWord
 {
     internal class Program
     {
         public static void Main(string[] args)
         {
-            /*var ui = new ConsoleUI();
-            ui.InputLetter();
-            ui.ChooseDifficulty();
+            var ui = new ConsoleUI();
+            ui.ShowGameWelcomeMessage();
+            
+            DifficultyType difficultyType = ui.ChooseDifficulty();
+            Difficulty difficulty = new Difficulty(difficultyType);
+            var game = new Game(difficulty);
 
-            var dictionary = new Dictionary<DifficultyType, int>();
-            dictionary[DifficultyType.Easy] = 4;
-            dictionary[DifficultyType.Normal] = 2;
-            dictionary[DifficultyType.Hard] = 0;
+            ui.ShowDifficulty(difficultyType);
+            ui.ShowLeftAttempts(game.LeftAttempts);
+            
+            game.GenerateWord();
+            string mask = game.GetMask();
+            ui.ShowWord(mask);
 
-            dictionary.ContainsKey(DifficultyType.Hard);
-            dictionary.ContainsValue(3);
-
-            if (dictionary.TryGetValue(DifficultyType.Easy, out int value))
+            while (game.HasLeftAttempts)
             {
-                Console.WriteLine(value);
-            }*/
+                char inputLetter = ui.InputLetter();
+                game.AddLetter(inputLetter);
+                ui.ShowUsedLetters(game.UsedLetters);
+                mask = game.GetMask();
+                ui.ShowWord(mask);
+                
+                if (game.IsGeneratedWordGuessed)
+                {
+                    break;
+                }
+                
+                ui.ShowLeftAttempts(game.LeftAttempts);
+            }
+            
+            ui.ShowGameResult(game.IsGeneratedWordGuessed);
         }
     }
 }

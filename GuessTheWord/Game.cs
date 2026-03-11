@@ -2,23 +2,51 @@ namespace GuessTheWord;
 
 public class Game
 {
-    private int _attempts;
-    private int _attemptsMax;
-    private List<char> _usedLetters = new List<char>();
-    private List<char> _guessedLetters = new List<char>();
-    
-    public  Game(int attemptsMax)
+    public int LeftAttempts { get; private set; }
+    public List<char> UsedLetters { get; } = new();
+
+    public bool HasLeftAttempts => LeftAttempts > 0;
+    public bool IsGeneratedWordGuessed => _generatedWord.IsGuessed(_guessedLetters);
+
+    private readonly Difficulty _difficulty;
+    private readonly WordBank _wordBank = new();
+    private readonly HashSet<char> _guessedLetters = new();
+
+    private Word _generatedWord;
+
+    public Game(Difficulty difficulty)
     {
-        _attemptsMax = attemptsMax;
+        _difficulty = difficulty;
+        LeftAttempts = difficulty.Attempts;
     }
 
-    public void AddLetter(char letter, bool isGuessed)
+    public void GenerateWord()
     {
-        _usedLetters.Add(letter);
-        
-        if (isGuessed)
+        _generatedWord = _wordBank.Generate(_difficulty);
+    }
+
+    public void AddLetter(char letter)
+    {
+        UsedLetters.Add(letter);
+
+        if (_generatedWord.Contains(letter))
         {
             _guessedLetters.Add(letter);
         }
+        
+        MinusAttempt();
+    }
+
+    private void MinusAttempt()
+    {
+        if (LeftAttempts > 0)
+        {
+            LeftAttempts--;
+        }
+    }
+
+    public string GetMask()
+    {
+        return _generatedWord.GetMask(_guessedLetters);
     }
 }
