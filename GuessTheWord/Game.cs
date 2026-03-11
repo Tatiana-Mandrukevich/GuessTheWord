@@ -33,9 +33,11 @@ public class Game
         {
             _guessedLetters.Add(letter);
         }
+        
+        MinusAttempt();
     }
 
-    public void MinusAttempt()
+    private void MinusAttempt()
     {
         if (LeftAttempts > 0)
         {

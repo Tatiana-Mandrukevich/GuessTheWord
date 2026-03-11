@@ -22,7 +22,6 @@
             {
                 char inputLetter = ui.InputLetter();
                 game.AddLetter(inputLetter);
-                game.MinusAttempt();
                 ui.ShowUsedLetters(game.UsedLetters);
                 mask = game.GetMask();
                 ui.ShowWord(mask);
