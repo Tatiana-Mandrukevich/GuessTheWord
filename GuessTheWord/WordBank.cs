@@ -1,23 +1,23 @@
-namespace GuesTheWord;
+namespace GuessTheWord;
 
 public class WordBank
 {
-    private Word[] _words;
+    private readonly HashSet<Word> _words;
 
     public WordBank()
     {
-        _words = new[]
+        _words = new HashSet<Word>
         {
-            new Word("ide"),
-            new Word("dog"),
-            new Word("cat"),
-            new Word("home"),
-            new Word("cold"),
-            new Word("unity"),
-            new Word("laptop"),
-            new Word("family"),
-            new Word("teacher"),
-            new Word("computer")
+            new("IDE"),
+            new("DOG"),
+            new("CAT"),
+            new("HOME"),
+            new("COLD"),
+            new("UNITY"),
+            new("LAPTOP"),
+            new("FAMILY"),
+            new("TEACHER"),
+            new("COMPUTER")
         };
     }
 

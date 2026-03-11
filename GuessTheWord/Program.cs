@@ -1,24 +1,40 @@
-﻿using System;
-
-namespace GuesTheWord
+﻿namespace GuessTheWord
 {
     internal class Program
     {
         public static void Main(string[] args)
         {
-            char[] guessedLetters = new[] {'h', 'a', 'e', 'i', 'o', 'u'};
+            var ui = new ConsoleUI();
+            ui.ShowGameWelcomeMessage();
             
-            var easyMood = new Difficulty(DifficultyType.Easy);
-            var normalMood = new Difficulty(DifficultyType.Normal);
-            var hardMood = new Difficulty(DifficultyType.Hard);
+            DifficultyType difficultyType = ui.ChooseDifficulty();
+            Difficulty difficulty = new Difficulty(difficultyType);
+            var game = new Game(difficulty);
+
+            ui.ShowDifficulty(difficultyType);
+            ui.ShowLeftAttempts(game.LeftAttempts);
             
-            var wordBank = new WordBank();
-            var generatedWord = wordBank.Generate(easyMood);
-            Console.WriteLine($"{generatedWord.GetMask(guessedLetters)}");
+            game.GenerateWord();
+            string mask = game.GetMask();
+            ui.ShowWord(mask);
+
+            while (game.HasLeftAttempts)
+            {
+                char inputLetter = ui.InputLetter();
+                game.AddLetter(inputLetter);
+                ui.ShowUsedLetters(game.UsedLetters);
+                mask = game.GetMask();
+                ui.ShowWord(mask);
+                
+                if (game.IsGeneratedWordGuessed)
+                {
+                    break;
+                }
+                
+                ui.ShowLeftAttempts(game.LeftAttempts);
+            }
             
-            /*Console.WriteLine($"{easyMood.Attempts}, " +
-                              $"{easyMood.MinWordLenght}, " +
-                              $"{easyMood.MaxWordLenght}");*/
+            ui.ShowGameResult(game.IsGeneratedWordGuessed);
         }
     }
 }
