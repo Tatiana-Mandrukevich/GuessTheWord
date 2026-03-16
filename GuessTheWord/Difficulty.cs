@@ -11,19 +11,19 @@ public class Difficulty
         switch (type)
         {
             case DifficultyType.Easy:
-                Attempts = 10;
+                Attempts = 14;
                 MinWordLenght = 3;
-                MaxWordLenght = 5;
+                MaxWordLenght = 4;
                 break;
             case DifficultyType.Normal:
-                Attempts = 8;
-                MinWordLenght = 4;
+                Attempts = 12;
+                MinWordLenght = 5;
                 MaxWordLenght = 6;
                 break;
             case DifficultyType.Hard:
-                Attempts = 6;
-                MinWordLenght = 5;
-                MaxWordLenght = 7;
+                Attempts = 10;
+                MinWordLenght = 7;
+                MaxWordLenght = 8;
                 break;
         }
     }
